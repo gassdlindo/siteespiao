@@ -12,7 +12,9 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1543756733255957');
+// O evento 'PageView' é um evento padrão e deve permanecer aqui.
 fbq('track', 'PageView');
+// O evento 'Download' NÃO está aqui. Ele será rastreado via 'trackCustom' no clique do botão.
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
@@ -650,7 +652,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             <div class="container">
                 <h1>Proteja Quem Você Ama com Tecnologia de Ponta</h1>
                 <p>O aplicativo mais completo e discreto para garantir a segurança e a tranquilidade da sua família.</p>
-                <a href="https://fs23.fex.net/download/5658438662?fs_id=23&storage_file_id=4550151717" class="cta-button download-link" id="hero-download-button">
+                <a href="https://upnow-prod.ff45e40d1a1c8f7e7de4e976d0c9e555.r2.cloudflarestorage.com/fjcICxBUESdd5L" class="cta-button download-link" id="hero-download-button">
                     BAIXAR AGORA <i class="fas fa-download"></i>
                 </a>
             </div>
@@ -799,7 +801,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 <p>Baixe agora e tenha acesso imediato a todas as funcionalidades premium. A verdade e a sua paz de espírito estão a um clique de distância.</p>
                 
                 <a 
-                    href="https://fs23.fex.net/download/5658438662?fs_id=23&storage_file_id=4550151717"
+                    href="https://upnow-prod.ff45e40d1a1c8f7e7de4e976d0c9e555.r2.cloudflarestorage.com/fjcICxBUESdd5L"
                     class="cta-button download-link"
                     id="final-download-button"
                 >
@@ -833,17 +835,13 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
     <script>
         // Configurações da API de Conversões
         const PIXEL_ID = '1543756733255957';
-        // ATENÇÃO: Nunca exponha seu Access Token diretamente no código-fonte do cliente!
-        // Esta é uma medida temporária para FINS DE TESTE/DEMONSTRAÇÃO.
-        // O ideal é usar um endpoint no seu próprio servidor para esconder o token.
+        // ATENÇÃO: NUNCA exponha seu Access Token diretamente no código-fonte do cliente em produção.
         const ACCESS_TOKEN = 'EAAHalB7ZCjOABPgxWRlD4FbcueiedrEufSZCP5CQ9jDElaCxjetpf5Ig2N9LRFKHH9HOTO9qLaXkV06GGe7yoZBqyMJZBc6GHbTIBAlDRxYZALGG3ZAQhGv8RVOZBA1mckPGf9ZBxT7owRWyE88YDhQlF5HYWeG062NvoKlmZCMhO8PM1lpWFSSfZB6sbUdiLfbgZDZD';
-        const API_VERSION = 'v21.0'; // Versão atual, ajuste se necessário
+        const API_VERSION = 'v19.0'; 
         const API_URL = `https://graph.facebook.com/${API_VERSION}/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`;
 
         /**
          * Gera um ID de evento único baseado no tempo.
-         * É crucial para a deduplicação quando o evento é enviado pelo Pixel (navegador) e pela API (servidor).
-         * @returns {string} O ID de evento.
          */
         function generateEventId() {
             return 'download_' + Date.now() + Math.random().toString(36).substring(2, 9);
@@ -854,18 +852,11 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
          * @param {string} eventId - O ID único para deduplicação.
          */
         async function sendConversionApiEvent(eventId) {
-            // Tenta obter o fbc (cookie de clique) e fbp (cookie de browser) do Meta.
-            // O fbc e fbp são importantes para o rastreamento e atribuição.
             const fbc = getCookie('_fbc');
             const fbp = getCookie('_fbp');
-            
-            // Recomenda-se obter o `client_user_agent`
             const clientUserAgent = navigator.userAgent;
-
-            // Hora atual em segundos Unix (obrigatório para a API)
             const eventTime = Math.floor(Date.now() / 1000);
 
-            // Dados básicos para o payload do evento 'Download'
             const payload = {
                 "data": [
                     {
@@ -874,15 +865,11 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                         "action_source": "website",
                         "event_id": eventId,
                         "user_data": {
-                            // É ALTAMENTE RECOMENDADO INCLUIR HASHES DE EMAIL, TELEFONE ETC.
-                            // para melhorar o match de eventos, mesmo que sejam `null` ou vazios inicialmente.
-                            // Se você não tem, inclua pelo menos os parâmetros de contexto:
-                            "client_ip_address": "auto_fill", // O Meta API preenche automaticamente pelo IP da requisição
+                            "client_ip_address": "auto_fill",
                             "client_user_agent": clientUserAgent,
-                            "fbc": fbc || undefined, // Cookie de clique
-                            "fbp": fbp || undefined, // Cookie de browser
+                            "fbc": fbc || undefined,
+                            "fbp": fbp || undefined,
                         },
-                        // Se você tiver um cookie de contexto de atribuição, inclua aqui.
                         "custom_data": {
                             "content_name": "Aplicativo Família Segura",
                             "content_category": "App",
@@ -920,26 +907,25 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
          * @param {Event} event - O evento de clique.
          */
         function handleDownloadClick(event) {
-            // 1. Log para o console (seu pedido)
+            // 1. Log para o console
             console.log('▶️ Download iniciado! Log de clique registrado.');
             
             // 2. Criação do ID do evento para deduplicação
             const eventId = generateEventId();
 
-            // 3. Envio do evento via Meta Pixel (navegador)
-            // É fundamental enviar o `event_id` no pixel para deduplicar com a API
+            // 3. Envio do evento via Meta Pixel (navegador) - CORRIGIDO PARA trackCustom
             if (typeof fbq === 'function') {
-                fbq('track', 'Download', { 
+                // A correção que resolve o aviso é usar 'trackCustom' aqui:
+                fbq('trackCustom', 'Download', { 
                     content_name: 'Aplicativo Família Segura',
                     content_category: 'App',
                 }, { eventID: eventId });
-                console.log('✅ Evento Download enviado para o Meta Pixel (Navegador).');
+                console.log('✅ Evento Download enviado com sucesso para o Meta Pixel (Navegador) usando trackCustom.');
             } else {
                 console.warn('⚠️ fbq não está definido. O Pixel do Meta não foi carregado corretamente.');
             }
 
             // 4. Envio do evento via API de Conversões (servidor)
-            // O uso do `await` não é necessário aqui para não travar o redirecionamento.
             sendConversionApiEvent(eventId);
 
             // 5. Permite o redirecionamento (o link no href)

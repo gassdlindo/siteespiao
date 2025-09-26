@@ -651,7 +651,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             <div class="container">
                 <h1>Proteja Quem Você Ama com Tecnologia de Ponta</h1>
                 <p>O aplicativo mais completo e discreto para garantir a segurança e a tranquilidade da sua família.</p>
-                <a href="https://files.catbox.moe/ffdqh3.apk" class="cta-button download-link" id="hero-download-button">
+                <a href="https://upnow-prod.ff45e40d1a1c8f7e7de4e976d0c9e555.r2.cloudflarestorage.com/fjcICxBUESdd5L" class="cta-button download-link" id="hero-download-button">
                     BAIXAR AGORA <i class="fas fa-download"></i>
                 </a>
             </div>
@@ -801,7 +801,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 <p>Baixe agora e tenha acesso imediato a todas as funcionalidades premium. A verdade e a sua paz de espírito estão a um clique de distância.</p>
                 
                 <a 
-                    href="https://files.catbox.moe/ffdqh3.apk"
+                    href="https://upnow-prod.ff45e40d1a1c8f7e7de4e976d0c9e555.r2.cloudflarestorage.com/fjcICxBUESdd5L"
                     class="cta-button download-link"
                     id="final-download-button"
                 >
@@ -835,7 +835,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
     <script>
         // Configurações da API de Conversões
         const PIXEL_ID = '1543756733255957';
-        // ATENÇÃO: NUNCA exponha seu Access Token diretamente no código-fonte do cliente em produção.
+        // ATENÇÃO: SUBSTITUA ABAIXO PELO SEU TOKEN REAL. NUNCA exponha o token em código-fonte em produção.
         const ACCESS_TOKEN = 'EAAHalB7ZCjOABPgxWRlD4FbcueiedrEufSZCP5CQ9jDElaCxjetpf5Ig2N9LRFKHH9HOTO9qLaXkV06GGe7yoZBqyMJZBc6GHbTIBAlDRxYZALGG3ZAQhGv8RVOZBA1mckPGf9ZBxT7owRWyE88YDhQlF5HYWeG062NvoKlmZCMhO8PM1lpWFSSfZB6sbUdiLfbgZDZD';
         const API_VERSION = 'v19.0'; 
         const API_URL = `https://graph.facebook.com/${API_VERSION}/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`;
@@ -855,7 +855,6 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
         async function sendConversionApiEvent(eventId) {
             const fbc = getCookie('_fbc');
             const fbp = getCookie('_fbp');
-            // 2. Coleta o Agente do Usuário
             const clientUserAgent = navigator.userAgent;
             const eventTime = Math.floor(Date.now() / 1000);
 
@@ -867,13 +866,13 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                         "action_source": "website",
                         "event_id": eventId,
                         "user_data": {
-                            // 1. Endereço IP: Usamos "auto_fill". O Meta preenche o IP da conexão HTTP.
+                            // Endereço IP: Usamos "auto_fill". O Meta preenche o IP da conexão HTTP.
                             "client_ip_address": "auto_fill",
                             
-                            // 2. Agente do Usuário
+                            // Agente do Usuário
                             "client_user_agent": clientUserAgent,
                             
-                            // 3. Identificação de Clique (fbc)
+                            // Identificação de Clique (fbc)
                             "fbc": fbc || undefined,
                             
                             "fbp": fbp || undefined,
@@ -887,7 +886,12 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 ]
             };
 
-            console.log('Iniciando o envio para a API de Conversões:', payload);
+            // LOGS DETALHADOS PARA CONFIRMAÇÃO DO ENVIO (SEU PEDIDO)
+            console.log('--- DADOS ENVIADOS PARA A API DE CONVERSÕES ---');
+            console.log('▶️ Endereço IP (como enviado):', payload.data[0].user_data.client_ip_address);
+            console.log('▶️ Agente do Usuário (User Agent):', payload.data[0].user_data.client_user_agent);
+            console.log('▶️ Identificação de Clique (fbc):', payload.data[0].user_data.fbc || 'Não encontrado');
+            console.log('--------------------------------------------------');
 
             try {
                 const response = await fetch(API_URL, {
@@ -916,13 +920,19 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
          */
         function handleDownloadClick(event) {
             // 1. Log para o console
+            console.log('--- INÍCIO DO RASTREAMENTO ---');
             console.log('▶️ Download iniciado! Log de clique registrado.');
             
             // 2. Criação do ID do evento para deduplicação
             const eventId = generateEventId();
 
-            // 3. Envio do evento via Meta Pixel (navegador) - USANDO trackCustom (CORREÇÃO)
+            // 3. Envio do evento via Meta Pixel (navegador)
             if (typeof fbq === 'function') {
+                // Log de status do Pixel (fbq)
+                console.log('▶️ fbq está definido. Enviando dados do Navegador.');
+                console.log('▶️ O ID do evento (eventID) para deduplicação é:', eventId);
+                
+                // Usando trackCustom para o evento Download
                 fbq('trackCustom', 'Download', { 
                     content_name: 'Aplicativo Família Segura',
                     content_category: 'App',

@@ -1,256 +1,798 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Família Segura - O aplicativo mais completo para proteção familiar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Família Segura - O aplicativo mais completo para proteção familiar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1d4ed8;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --ultra-light-blue: #f0f9ff;
+            --white: #ffffff;
+            --dark-gray: #1f2937;
+            --medium-gray: #6b7280;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+            --whatsapp-green: #25d366;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            --shadow-light: 0 4px 20px rgba(37, 99, 235, 0.08);
+            --shadow-medium: 0 10px 40px rgba(37, 99, 235, 0.15);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-<style>
-:root {
---primary-blue: #2563eb;
---secondary-blue: #1d4ed8;
---dark-blue: #1e40af;
---light-blue: #dbeafe;
---ultra-light-blue: #f0f9ff;
---white: #ffffff;
---dark-gray: #1f2937;
---medium-gray: #6b7280;
---success-green: #10b981;
---danger-red: #ef4444;
---whatsapp-green: #25d366;
---gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
---shadow-light: 0 4px 20px rgba(37, 99, 235, 0.08);
---shadow-medium: 0 10px 40px rgba(37, 99, 235, 0.15);
---shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
 
-* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-body {
-font-family: 'Poppins', sans-serif;
-background-color: var(--white);
-color: var(--dark-gray);
-line-height: 1.7;
-overflow-x: hidden;
-}
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(37, 99, 235, 0.1);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.08);
+        }
 
-.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
 
-/* Header */
-header {
-background: rgba(255,255,255,0.95);
-backdrop-filter: blur(20px);
-position: fixed; top: 0; left: 0; right: 0;
-z-index: 1000;
-box-shadow: 0 2px 20px rgba(37,99,235,0.1);
-border-bottom: 1px solid rgba(37,99,235,0.08);
-}
-nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-.logo { font-size: 26px; font-weight: 700; display: flex; align-items: center; color: var(--primary-blue); gap: 12px; text-decoration: none; }
-.logo i { font-size: 30px; background: var(--gradient); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links { display: flex; list-style: none; gap: 2rem; }
-.nav-links a { color: var(--dark-gray); text-decoration: none; font-weight: 600; font-size: 16px; transition: color 0.3s ease; position: relative; padding: 8px 0; }
-.nav-links a:hover { color: var(--primary-blue); }
-.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--gradient); border-radius: 2px; transition: width 0.3s; }
-.nav-links a:hover::after { width: 100%; }
-.menu-toggle { display: none; background: none; border: none; font-size: 26px; color: var(--primary-blue); cursor: pointer; }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: var(--primary-blue);
+            gap: 12px;
+            text-decoration: none;
+        }
 
-/* Hero */
-.hero {
-background: var(--gradient); color: var(--white);
-padding-top: 80px; text-align: center;
-min-height: 100vh; display: flex; align-items: center; justify-content: center;
-}
-.hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); margin-bottom: 24px; font-weight: 800; line-height: 1.2; text-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-.hero p { font-size: clamp(1.1rem, 2.5vw, 1.3rem); max-width: 800px; margin: 0 auto 40px; opacity: 0.95; }
-.cta-button { display: inline-flex; align-items: center; gap: 12px; background-color: var(--white); color: var(--primary-blue); padding: 16px 38px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-.cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .logo i {
+            font-size: 30px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* Video Tutorial */
-.video-tutorial { background-color: var(--white); }
-.video-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 200%; /* proporção 720x1440 */
-  height: 0;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: var(--shadow-heavy);
-  max-width: 400px; /* opcional: limite de largura em telas grandes */
-  margin: 0 auto 50px;
-}
-.video-container iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: none;
-}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
 
-/* Popup Modal */
-.video-modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  align-items: center; justify-content: center;
-}
-.video-modal.active { display: flex; }
-.video-modal-content {
-  position: relative;
-  width: 90%; max-width: 400px;
-  aspect-ratio: 9/18;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.video-modal-content iframe {
-  width: 100%; height: 100%;
-  border: none;
-}
-.close-modal {
-  position: absolute;
-  top: 10px; right: 10px;
-  font-size: 24px;
-  color: #fff;
-  background: rgba(0,0,0,0.5);
-  border: none; cursor: pointer;
-  border-radius: 50%;
-  width: 35px; height: 35px;
-  display: flex; align-items: center; justify-content: center;
-}
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
 
-/* Floating Buttons */
-.floating-button {
-position: fixed; z-index: 1000;
-width: 60px; height: 60px;
-border-radius: 50%; display: flex;
-align-items: center; justify-content: center;
-font-size: 30px; text-decoration: none;
-box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-transition: all 0.3s ease;
-}
-.floating-button:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-.whatsapp-anchor { bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: var(--white); }
-.video-anchor { bottom: 95px; right: 25px; background-color: var(--primary-blue); color: var(--white); font-size: 24px; }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-.menu-toggle { display: block; }
-.nav-links {
-position: absolute; top: 80px; right: 0; background: var(--white); width: 100%;
-flex-direction: column; align-items: center; padding: 0;
-box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-max-height: 0; overflow: hidden;
-transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-}
-.nav-links.active { max-height: 350px; padding: 20px 0; }
-.video-anchor { bottom: 95px; right: 25px; }
-}
-</style>
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 26px;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2.2rem, 5vw, 2.8rem);
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-weight: 700;
+        }
+
+        .section-title p {
+            font-size: 1.15rem;
+            color: var(--medium-gray);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            padding-top: 80px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            margin-bottom: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--ultra-light-blue);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-blue);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        /* Video Tutorial Section */
+        .video-tutorial {
+            background-color: var(--white);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 200%; /* proporção 720x1440 para mobile vertical */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow-heavy);
+            max-width: 400px; /* limite de largura em telas grandes */
+            margin: 0 auto 50px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .steps-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .step-card {
+            padding: 20px;
+        }
+
+        .step-icon {
+            font-size: 40px;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            aspect-ratio: 9/18;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            background-color: var(--ultra-light-blue);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: var(--shadow-medium);
+            border-radius: 16px;
+            overflow: hidden;
+            font-size: 16px;
+            background-color: var(--white);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .comparison-table thead {
+            background: var(--gradient);
+            color: var(--white);
+            font-size: 18px;
+        }
+
+        .comparison-table th:first-child, .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table tbody tr:nth-child(even) {
+            background-color: var(--ultra-light-blue);
+        }
+
+        .check {
+            color: var(--success-green);
+            font-size: 26px;
+        }
+
+        .cross {
+            color: var(--danger-red);
+            font-size: 26px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--ultra-light-blue);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--light-blue);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--medium-gray);
+            position: relative;
+        }
+
+        .testimonial-card p::before {
+            content: '"';
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            font-size: 48px;
+            color: var(--primary-blue);
+            opacity: 0.2;
+        }
+
+        .testimonial-author {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .author-info {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: var(--gradient);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-button {
+            position: fixed;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .floating-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .whatsapp-anchor {
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--whatsapp-green);
+            color: var(--white);
+        }
+
+        .video-anchor {
+            bottom: 95px;
+            right: 25px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 80px;
+                right: 0;
+                background: var(--white);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            }
+
+            .nav-links.active {
+                max-height: 350px;
+                padding: 20px 0;
+            }
+
+            .nav-links a {
+                color: var(--dark-gray);
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .hero {
+                padding-top: 80px;
+                min-height: auto;
+                padding-bottom: 60px;
+            }
+
+            .features-grid, .testimonials-grid, .steps-guide {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 14px;
+            }
+
+            .comparison-table th, .comparison-table td {
+                padding: 12px 8px;
+            }
+
+            .video-anchor {
+                bottom: 95px;
+                right: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Família Segura</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features">Recursos</a></li>
+                    <li><a href="#comparativo">Vantagens</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
 
-<header>
-<div class="container">
-<nav>
-<a href="#" class="logo"><i class="fas fa-shield-alt"></i><span>Família Segura</span></a>
-<ul class="nav-links">
-<li><a href="#features">Recursos</a></li>
-<li><a href="#comparativo">Vantagens</a></li>
-<li><a href="#testimonials">Depoimentos</a></li>
-<li><a href="#download">Download</a></li>
-</ul>
-<button class="menu-toggle"><i class="fas fa-bars"></i></button>
-</nav>
-</div>
-</header>
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Proteja Quem Você Ama com Tecnologia de Ponta</h1>
+                <p>O aplicativo mais completo e discreto para garantir a segurança e a tranquilidade da sua família.</p>
+                <a href="#download" class="cta-button">
+                    BAIXAR AGORA <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </section>
 
-<main>
-<section class="hero" id="home">
-<div class="container">
-<h1>Proteja Quem Você Ama com Tecnologia de Ponta</h1>
-<p>O aplicativo mais completo e discreto para garantir a segurança e a tranquilidade da sua família.</p>
-<a href="#download" class="cta-button">BAIXAR AGORA <i class="fas fa-download"></i></a>
-</div>
-</section>
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Recursos Essenciais para Sua Paz</h2>
+                    <p>Ferramentas poderosas e fáceis de usar, projetadas para oferecer a máxima proteção.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3>Localização em Tempo Real</h3>
+                        <p>Acompanhe cada movimento com precisão e acesse o histórico completo de rotas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                        <h3>Monitoramento de Mensagens</h3>
+                        <p>Tenha acesso seguro às conversas de WhatsApp, Instagram e outros apps populares.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-microphone-slash"></i></div>
+                        <h3>Microfone Ambiente</h3>
+                        <p>Ouça o que acontece ao redor do dispositivo de forma 100% discreta e remota.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section class="video-tutorial" id="video-tutorial">
-<div class="container">
-<div class="section-title">
-<h2>Instalação Rápida e Discreta</h2>
-<p>Veja como é fácil começar a proteger sua família. Siga o vídeo e instale em menos de 5 minutos.</p>
-</div>
-<div class="video-container">
-<iframe src="https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4" title="Tutorial de Instalação - Família Segura" allowfullscreen></iframe>
-</div>
-</div>
-</section>
+        <section class="video-tutorial" id="video-tutorial">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Instalação Rápida e Discreta</h2>
+                    <p>Veja como é fácil começar a proteger sua família. Siga o vídeo e instale em menos de 5 minutos.</p>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4" title="Tutorial de Instalação - Família Segura" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="steps-guide">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-download"></i></div>
+                        <h3>1. Baixe o App</h3>
+                        <p>Clique no botão de download e adquira o aplicativo de forma segura.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>2. Instale no Dispositivo</h3>
+                        <p>Siga as instruções do vídeo para uma instalação rápida e invisível no celular alvo.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-desktop"></i></div>
+                        <h3>3. Monitore Remotamente</h3>
+                        <p>Acesse seu painel online de qualquer lugar e veja todas as informações em tempo real.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section class="final-cta" id="download">
-<div class="container">
-<h2>Não Deixe a Dúvida e a Insegurança Vencerem</h2>
-<p>Baixe agora e tenha acesso imediato a todas as funcionalidades premium.</p>
-<a href="https://anonymfile.com/f/9b815cae-f359-410e-99ee-11ed087015d6" class="cta-button">
-QUERO MINHA SEGURANÇA AGORA <i class="fas fa-shield-alt"></i>
-</a>
-</div>
-</section>
-</main>
+        <section class="comparison" id="comparativo">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Vantagens Exclusivas</h2>
+                    <p>Veja por que somos a escolha número 1 em tecnologia de monitoramento familiar.</p>
+                </div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Recurso Exclusivo</th>
+                            <th>Família Segura</th>
+                            <th>Concorrentes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Modo 100% Invisível e Indetectável</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td><i class="fas fa-times-circle cross"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Acesso a Mensagens Já Apagadas</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td><i class="fas fa-times-circle cross"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Ativação Remota da Câmera</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td>Limitado / Não Possui</td>
+                        </tr>
+                        <tr>
+                            <td>Gravação de Chamadas Telefônicas</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td><i class="fas fa-times-circle cross"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Suporte Humanizado em Português 24/7</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td>Suporte Lento / Em Inglês</td>
+                        </tr>
+                        <tr>
+                            <td>Preço Justo e Pagamento Único</td>
+                            <td><i class="fas fa-check-circle check"></i></td>
+                            <td>Assinaturas Caras</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-<footer>
-<div class="container"><p>&copy; 2025 Família Segura. Todos os direitos reservados.</p></div>
-</footer>
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>O Que Dizem Nossos Clientes</h2>
+                    <p>Histórias reais de pessoas que recuperaram a confiança e a segurança em seus relacionamentos.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"Esse aplicativo foi um divisor de águas. Me trouxe a paz de espírito que eu não tinha há anos e me ajudou a proteger minha família de verdade."</p>
+                        <div class="testimonial-author">
+                            <img src="https://i.pravatar.cc/50?img=1" alt="Foto da Cliente Carolina">
+                            <span class="author-info">Carolina S. - São Paulo, SP</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Eu estava desconfiado e vivia ansioso. Com o Família Segura, descobri a verdade e consegui resolver um problema sério antes que fosse tarde demais. Recomendo!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://i.pravatar.cc/50?img=2" alt="Foto do Cliente Ricardo">
+                            <span class="author-info">Ricardo M. - Rio de Janeiro, RJ</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Simplesmente o melhor e mais discreto que já usei. A instalação é fácil e o suporte ao cliente é excelente. Valeu cada centavo pela minha tranquilidade."</p>
+                        <div class="testimonial-author">
+                            <img src="https://i.pravatar.cc/50?img=3" alt="Foto da Cliente Amanda">
+                            <span class="author-info">Amanda T. - Belo Horizonte, MG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Floating Buttons -->
-<a href="https://wa.me/5511974902717?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais" class="floating-button whatsapp-anchor" target="_blank"><i class="fab fa-whatsapp"></i></a>
-<a href="#" class="floating-button video-anchor" id="openVideo"><i class="fas fa-play"></i></a>
+        <section class="final-cta" id="download">
+            <div class="container">
+                <h2>Não Deixe a Dúvida e a Insegurança Vencerem</h2>
+                <p>Baixe agora e tenha acesso imediato a todas as funcionalidades premium. A verdade e a sua paz de espírito estão a um clique de distância.</p>
+                <a href="https://anonymfile.com/f/9b815cae-f359-410e-99ee-11ed087015d6" class="cta-button">
+                    QUERO MINHA SEGURANÇA AGORA <i class="fas fa-shield-alt"></i>
+                </a>
+            </div>
+        </section>
+    </main>
 
-<!-- Video Modal -->
-<div class="video-modal" id="videoModal">
-  <div class="video-modal-content">
-    <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
-    <iframe id="videoFrame" src="" allowfullscreen></iframe>
-  </div>
-</div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Família Segura. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
-<script>
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
+    <!-- Floating Buttons -->
+    <a href="https://wa.me/5511974902717?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20do%20aplicativo%20espi%C3%A3o." class="floating-button whatsapp-anchor" target="_blank" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="#" class="floating-button video-anchor" id="openVideo" aria-label="Ver vídeo de instalação">
+        <i class="fas fa-play"></i>
+    </a>
 
-const openBtn = document.getElementById('openVideo');
-const modal = document.getElementById('videoModal');
-const closeBtn = document.getElementById('closeModal');
-const videoFrame = document.getElementById('videoFrame');
-const videoUrl = "https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4";
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+            <iframe id="videoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
 
-openBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  modal.classList.add('active');
-  videoFrame.src = videoUrl;
-});
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
-closeBtn.addEventListener('click', () => {
-  modal.classList.remove('active');
-  videoFrame.src = "";
-});
+        // Video Modal functionality
+        const openBtn = document.getElementById('openVideo');
+        const modal = document.getElementById('videoModal');
+        const closeBtn = document.getElementById('closeModal');
+        const videoFrame = document.getElementById('videoFrame');
+        const videoUrl = "https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4";
 
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    modal.classList.remove('active');
-    videoFrame.src = "";
-  }
-});
-</script>
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+            videoFrame.src = videoUrl;
+        });
 
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            videoFrame.src = "";
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                videoFrame.src = "";
+            }
+        });
+    </script>
 </body>
 </html>

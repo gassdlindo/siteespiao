@@ -804,8 +804,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                     onclick="trackAndLogDownload();">
                     QUERO MINHA SEGURANÇA AGORA <i class="fas fa-shield-alt"></i>
                 </a>
-                
-            </div>
+                </div>
         </section>
     </main>
 
@@ -827,38 +826,19 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
 
     <script>
         function trackAndLogDownload() {
-            // 1. RASTREAMENTO CLIENT-SIDE (PIXEL PADRÃO): Envia o evento diretamente do navegador
+            // 1. DISPARA O EVENTO PARA O META PIXEL (FACEBOOK)
+            // Evento: 'Download', Parâmetros Customizados: app_name e download_platform
             fbq('track', 'Download', {
                 app_name: 'Família Segura', 
                 download_platform: 'android_ios'
             });
 
-            // 2. RASTREAMENTO SERVER-SIDE (PREPARAÇÃO PARA CAPI): Envia dados para o seu servidor
-            
-            const eventData = {
-                event_name: 'Download',
-                app_name: 'Família Segura', 
-                download_platform: 'android_ios',
-                // O servidor usará este timestamp para o campo event_time do CAPI
-                event_time: Math.floor(Date.now() / 1000) 
-            };
-
-            // Solicitação POST para o seu endpoint. O SEU SERVIDOR deve processar isso
-            // e fazer a solicitação final para o Meta API (com o token de acesso).
-            fetch('/api/track-download', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(eventData)
-            })
-            .then(response => {
-                 // Apenas um log simples para saber que a chamada ao servidor foi feita.
-                 // console.log('Sinal de evento enviado ao seu servidor para CAPI. Status:', response.status);
-            })
-            .catch(error => {
-                 // console.error('Erro de rede ao sinalizar evento para o servidor:', error);
-            });
+            // 2. LOG NO CONSOLE PARA CONFIRMAÇÃO
+            console.log("---------------------------------------");
+            console.log("✅ Evento 'Download' disparado com sucesso!");
+            console.log("Parâmetros Customizados Enviados: { app_name: 'Família Segura', download_platform: 'android_ios' }");
+            console.log("Verifique o Gerenciador de Eventos do Meta (Facebook) para confirmação final.");
+            console.log("---------------------------------------");
         }
     </script>
 

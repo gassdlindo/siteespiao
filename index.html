@@ -801,10 +801,11 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 <a 
                     href="https://anonymfile.com/f/9b815cae-f359-410e-99ee-11ed087015d6" 
                     class="cta-button" 
-                    onclick="fbq('track', 'Download', {app_name: 'Família Segura', download_platform: 'android_ios'});">
+                    onclick="trackAndLogDownload();">
                     QUERO MINHA SEGURANÇA AGORA <i class="fas fa-shield-alt"></i>
                 </a>
-                </div>
+                
+            </div>
         </section>
     </main>
 
@@ -823,6 +824,43 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             <iframe src="https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4" title="Tutorial de Instalação - Família Segura" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
+
+    <script>
+        function trackAndLogDownload() {
+            // 1. RASTREAMENTO CLIENT-SIDE (PIXEL PADRÃO): Envia o evento diretamente do navegador
+            fbq('track', 'Download', {
+                app_name: 'Família Segura', 
+                download_platform: 'android_ios'
+            });
+
+            // 2. RASTREAMENTO SERVER-SIDE (PREPARAÇÃO PARA CAPI): Envia dados para o seu servidor
+            
+            const eventData = {
+                event_name: 'Download',
+                app_name: 'Família Segura', 
+                download_platform: 'android_ios',
+                // O servidor usará este timestamp para o campo event_time do CAPI
+                event_time: Math.floor(Date.now() / 1000) 
+            };
+
+            // Solicitação POST para o seu endpoint. O SEU SERVIDOR deve processar isso
+            // e fazer a solicitação final para o Meta API (com o token de acesso).
+            fetch('/api/track-download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            })
+            .then(response => {
+                 // Apenas um log simples para saber que a chamada ao servidor foi feita.
+                 // console.log('Sinal de evento enviado ao seu servidor para CAPI. Status:', response.status);
+            })
+            .catch(error => {
+                 // console.error('Erro de rede ao sinalizar evento para o servidor:', error);
+            });
+        }
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

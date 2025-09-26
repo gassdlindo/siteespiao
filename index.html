@@ -801,7 +801,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 <a 
                     href="https://anonymfile.com/f/9b815cae-f359-410e-99ee-11ed087015d6" 
                     class="cta-button" 
-                    onclick="fbq('track', 'Download', {app_name: 'Família Segura', download_platform: 'android_ios'});">
+                    onclick="trackAndLogDownload();">
                     QUERO MINHA SEGURANÇA AGORA <i class="fas fa-shield-alt"></i>
                 </a>
                 </div>
@@ -823,6 +823,24 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             <iframe src="https://ia800306.us.archive.org/9/items/202509231302/202509231302.ia.mp4" title="Tutorial de Instalação - Família Segura" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
+
+    <script>
+        function trackAndLogDownload() {
+            // 1. DISPARA O EVENTO PARA O META PIXEL (FACEBOOK)
+            // Evento: 'Download', Parâmetros Customizados: app_name e download_platform
+            fbq('track', 'Download', {
+                app_name: 'Família Segura', 
+                download_platform: 'android_ios'
+            });
+
+            // 2. LOG NO CONSOLE PARA CONFIRMAÇÃO
+            console.log("---------------------------------------");
+            console.log("✅ Evento 'Download' disparado com sucesso!");
+            console.log("Parâmetros Customizados Enviados: { app_name: 'Família Segura', download_platform: 'android_ios' }");
+            console.log("Verifique o Gerenciador de Eventos do Meta (Facebook) para confirmação final.");
+            console.log("---------------------------------------");
+        }
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

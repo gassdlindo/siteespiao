@@ -12,9 +12,8 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1543756733255957');
-// O evento 'PageView' é um evento padrão e deve permanecer aqui.
+// Apenas o PageView é rastreado automaticamente
 fbq('track', 'PageView');
-// O evento 'Download' NÃO está aqui. Ele será rastreado via 'trackCustom' no clique do botão.
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
@@ -652,7 +651,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             <div class="container">
                 <h1>Proteja Quem Você Ama com Tecnologia de Ponta</h1>
                 <p>O aplicativo mais completo e discreto para garantir a segurança e a tranquilidade da sua família.</p>
-                <a href="https://fs23.fex.net/download/5658438662?fs_id=23&storage_file_id=4550151717"" class="cta-button download-link" id="hero-download-button">
+                <a href="https://wormhole.app/download-stream/hCpYMG834wnUFJJFYGUjHg" class="cta-button download-link" id="hero-download-button">
                     BAIXAR AGORA <i class="fas fa-download"></i>
                 </a>
             </div>
@@ -708,6 +707,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                         <div class="step-icon"><i class="fas fa-desktop"></i></div>
                         <h3>3. Monitore Remotamente</h3>
                         <p>Acesse seu painel online de qualquer lugar e veja todas as informações em tempo real.</p>
+                    </p>
                     </div>
                 </div>
             </div>
@@ -801,7 +801,7 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                 <p>Baixe agora e tenha acesso imediato a todas as funcionalidades premium. A verdade e a sua paz de espírito estão a um clique de distância.</p>
                 
                 <a 
-                    href="https://fs23.fex.net/download/5658438662?fs_id=23&storage_file_id=4550151717""
+                    href="https://wormhole.app/download-stream/hCpYMG834wnUFJJFYGUjHg"
                     class="cta-button download-link"
                     id="final-download-button"
                 >
@@ -848,12 +848,14 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
         }
 
         /**
-         * Envia o evento 'Download' para a API de Conversões (Servidor).
+         * Envia o evento 'Download' para a API de Conversões (Servidor),
+         * incluindo Endereço IP, Agente do Usuário e fbc.
          * @param {string} eventId - O ID único para deduplicação.
          */
         async function sendConversionApiEvent(eventId) {
             const fbc = getCookie('_fbc');
             const fbp = getCookie('_fbp');
+            // 2. Coleta o Agente do Usuário
             const clientUserAgent = navigator.userAgent;
             const eventTime = Math.floor(Date.now() / 1000);
 
@@ -865,9 +867,15 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
                         "action_source": "website",
                         "event_id": eventId,
                         "user_data": {
+                            // 1. Endereço IP: Usamos "auto_fill". O Meta preenche o IP da conexão HTTP.
                             "client_ip_address": "auto_fill",
+                            
+                            // 2. Agente do Usuário
                             "client_user_agent": clientUserAgent,
+                            
+                            // 3. Identificação de Clique (fbc)
                             "fbc": fbc || undefined,
+                            
                             "fbp": fbp || undefined,
                         },
                         "custom_data": {
@@ -913,9 +921,8 @@ src="https://www.facebook.com/tr?id=1543756733255957&ev=PageView&noscript=1"
             // 2. Criação do ID do evento para deduplicação
             const eventId = generateEventId();
 
-            // 3. Envio do evento via Meta Pixel (navegador) - CORRIGIDO PARA trackCustom
+            // 3. Envio do evento via Meta Pixel (navegador) - USANDO trackCustom (CORREÇÃO)
             if (typeof fbq === 'function') {
-                // A correção que resolve o aviso é usar 'trackCustom' aqui:
                 fbq('trackCustom', 'Download', { 
                     content_name: 'Aplicativo Família Segura',
                     content_category: 'App',
